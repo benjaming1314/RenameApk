@@ -1,0 +1,57 @@
+// 和 Android 开发中的 apply plugin 等效
+plugins {
+    id 'java-gradle-plugin'
+    id 'kotlin'
+    // Apply the Groovy plugin to add support for Groovy
+    id 'groovy'
+    id 'maven-publish'
+}
+
+repositories {
+    // Use jcenter for resolving dependencies.
+    // You can declare any Maven/Ivy/file repository here.
+    jcenter()
+}
+
+gradlePlugin {
+    plugins {
+        // 声明插件信息，这里的 hello 名字随意
+        hello {
+            // 插件ID
+            id = 'com.lxm.apkname'
+            // 插件的实现类
+            implementationClass = 'com.lxm.apkname.ApkNamePlugin'
+        }
+    }
+}
+
+publishing {
+    publications {
+        // 这里的 hello 可以任意命名
+        hello(MavenPublication) {
+            // 插件的组ID，建议设置为插件的包名
+            groupId = 'com.lxm.apkname'
+            // 翻译过来是 工件ID，我的理解是插件的名字
+            artifactId = 'ApkNamePlugin'
+            version = '0.0.5'
+            // 组件类型，我们的插件其实就是Java组件
+            from components.java
+        }
+    }
+
+    repositories {
+
+       maven {
+           credentials {
+               username  = 'benjaming4431766@gmail.com' // 仓库发布用户名
+               password  = 'Jfrog$lxm0110' // 仓库发布用户密码
+           }
+           url = "https://lxm.jfrog.io/artifactory/sijie_lxm-libs-release"
+       }
+    }
+
+}
+
+dependencies {
+    implementation 'com.android.tools.build:gradle:3.6.3'
+}
