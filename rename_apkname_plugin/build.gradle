@@ -44,7 +44,7 @@ publishing {
        maven {
            credentials {
                username  = 'benjaming4431766@gmail.com' // 仓库发布用户名
-               password  = 'Jfrog$lxm0110' // 仓库发布用户密码
+               password  = '' // 仓库发布用户密码
            }
            url = "https://lxm.jfrog.io/artifactory/sijie_lxm-libs-release"
        }
